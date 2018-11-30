@@ -18,10 +18,13 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.database.DatabaseReference;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
+import static com.example.nihit.googlesignin.MainActivity.userid;
 
 public class New_user_google extends AppCompatActivity {
     ExpandableListAdapter listAdapter;
@@ -32,6 +35,8 @@ public class New_user_google extends AppCompatActivity {
     private EditText designation,addrs,name1,email1;
     private Button signin, signup,clear;
     private Intent intent1;
+    private DatabaseReference mDatabase;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,15 +93,11 @@ public class New_user_google extends AppCompatActivity {
                     intent1.putExtra("Designation", getdesignation);
                     intent1.putExtra("Address", getaddres);
                     intent1.putExtra("Email", email2);
-                   /* if(fp.getText()!=null){
-                        intent1.putExtra("FP",fp.getText().toString().trim());
-                    }
-                    if(lp.getText()!=null){
-                        intent1.putExtra("LP",lp.getText().toString().trim());
-                    }
-                    if(pp.getText()!=null){
-                        intent1.putExtra("PP",pp.getText().toString().trim());
-                    }*/
+                    Toast.makeText(getApplicationContext(),"User successfully registered!!",Toast.LENGTH_SHORT).show();
+                    userid =  mAuth.getCurrentUser().getUid();
+                    DatabaseReference current_user =  mDatabase.child(userid);
+                    current_user.child("Designation").setValue(getdesignation);
+                    current_user.child("Address").setValue(getaddres);
                     startActivity(intent1);
                   //  callsignup(email, getepassword);
                     //finish();
@@ -115,70 +116,7 @@ public class New_user_google extends AppCompatActivity {
         });
 
     }
-    //Create Account
-//    private void callsignup(String email,String password) {
-//
-//        mAuth.createUserWithEmailAndPassword(email, password)
-//                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<AuthResult> task) {
-//                        Log.d("TESTING", "Sign up Successful" + task.isSuccessful());
-//
-//// If sign in fails, display a message to the user. If sign in succeeds
-//// the auth state listener will be notified and logic to handle the
-//// signed in user can be handled in the listener.
-//                        if (!task.isSuccessful()) {
-//                            Toast.makeText(New_user_google.this, "Signed up Failed", Toast.LENGTH_SHORT).show();
-//                        }
-//                        else
-//                        {
-//                            userProfile();
-//                            Toast.makeText(New_user_google.this, "Created Account", Toast.LENGTH_SHORT).show();
-//                            Log.d("TESTING", "Created Account");
-//                            startActivity(intent1);
-//                        }
-//                    }
-//                });
-////    }
-//    private void prepareListData(){
-//        listDataHeader = new ArrayList<String>();
-//        listDataHeader.add("Add more websites");
-//        listDataChild=new HashMap<String, List<EditText>>();
-//        List<EditText> webs=new ArrayList<EditText>();
-//        EditText editText1=new EditText(getApplicationContext());
-//        editText1.setHint("Facebook Profile");
-//        EditText editText2=new EditText(getApplicationContext());
-//        editText2.setHint("Linkedin Profile");
-//        EditText editText3=new EditText(getApplicationContext());
-//        editText3.setHint("Personal Website");
-//        webs.add(editText1);
-//        webs.add(editText2);
-//        webs.add(editText3);
-//        listDataChild.put(listDataHeader.get(0),webs);
-//    }
 
-    //Set UserDisplay Name
-  //  private void userProfile()
-//    {
-//        FirebaseUser user = mAuth.getCurrentUser();
-//        if(user!= null)
-//        {
-//            UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
-//                    .setDisplayName(name.getText().toString().trim())
-////.setPhotoUri(Uri.parse("https://example.com/jane-q-user/profile.jpg")) // here you can set image link also.
-//                    .build();
-//
-//            user.updateProfile(profileUpdates)
-//                    .addOnCompleteListener(new OnCompleteListener<Void>() {
-//                        @Override
-//                        public void onComplete(@NonNull Task<Void> task) {
-//                            if (task.isSuccessful()) {
-//                                Log.d("TESTING", "User profile updated.");
-//                            }
-//                        }
-//                    });
-//        }
-//    }
     private void prepareListData(){
         listDataHeader = new ArrayList<String>();
         listDataHeader.add("Add more websites");

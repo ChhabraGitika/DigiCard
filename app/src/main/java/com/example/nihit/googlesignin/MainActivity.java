@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private Button signOut,login;
     private DatabaseReference mDatabase;
-
+     static  String userid = null;
 
 
     @Override
@@ -147,7 +147,7 @@ public class MainActivity extends AppCompatActivity {
             String personEmail = acct.getEmail();
             String personId = acct.getId();
             Uri personPhoto = acct.getPhotoUrl();
-            String userid =  mAuth.getCurrentUser().getUid();
+            userid =  mAuth.getCurrentUser().getUid();
             DatabaseReference current_user =  mDatabase.child(userid);
             current_user.child("name").setValue(personName);
             current_user.child("email").setValue(personEmail);
