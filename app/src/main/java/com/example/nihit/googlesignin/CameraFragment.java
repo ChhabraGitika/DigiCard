@@ -14,7 +14,7 @@ import com.google.zxing.Result;
 
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
-public class CameraFragment extends Fragment{
+public class CameraFragment extends Fragment implements ZXingScannerView.ResultHandler{
     private ZXingScannerView mScannerView;
     private LinearLayout qrCameraLayout;
 
@@ -32,24 +32,26 @@ public class CameraFragment extends Fragment{
     }
     public void onStart() {
         super.onStart();
-        mScannerView.setResultHandler(new ZXingScannerView.ResultHandler() {
+        /*mScannerView.setResultHandler(new ZXingScannerView.ResultHandler() {
             @Override
             public void handleResult(Result rawResult) {
                 //Toast.makeText(getActivity(), "Contents = " + rawResult.getText() + ", Format = " + rawResult.getBarcodeFormat().toString(), Toast.LENGTH_SHORT).show();
             }
-        }); // Register ourselves as a handler for scan results.
+        }); // Register ourselves as a handler for scan results.*/
+        mScannerView.setResultHandler(this);
         mScannerView.startCamera();          // Start camera on resume
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        mScannerView.setResultHandler(new ZXingScannerView.ResultHandler() {
+        /*mScannerView.setResultHandler(new ZXingScannerView.ResultHandler() {
             @Override
             public void handleResult(Result rawResult) {
                 //Toast.makeText(getActivity(), "Contents = " + rawResult.getText() + ", Format = " + rawResult.getBarcodeFormat().toString(), Toast.LENGTH_SHORT).show();
             }
-        }); // Register ourselves as a handler for scan results.
+        }); // Register ourselves as a handler for scan results.*/
+        mScannerView.setResultHandler(this);
         mScannerView.startCamera();          // Start camera on resume
     }
 
@@ -60,7 +62,11 @@ public class CameraFragment extends Fragment{
     }
 
 
-
+    @Override
+    public void handleResult(Result result) {
+        MainActivity.userid=result.getText();
+        //onBackPressed();
+    }
 }
 
 
