@@ -19,12 +19,13 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import static com.example.nihit.googlesignin.MainActivity.userid;
+
 
 public class New_user_google extends AppCompatActivity {
     ExpandableListAdapter listAdapter;
@@ -64,6 +65,7 @@ public class New_user_google extends AppCompatActivity {
         clear = (Button)findViewById(R.id.clear);
         final String email = b.getString("email");
         final String name = b.getString("name");
+        final String userid = b.getString("userid");
         designation=(EditText)findViewById(R.id.input_designation);
         addrs=(EditText)findViewById(R.id.input_address);
         name1.setText(name);
@@ -85,19 +87,25 @@ public class New_user_google extends AppCompatActivity {
 
                 else {
 
-
+                    String userid=null;
                     String getdesignation = "Designation:"+designation.getText().toString().trim()+"\n";
                     String getaddres = "Address"+addrs.getText().toString().trim()+"\n";
+                    String address = addrs.getText().toString();
+                    String desig = designation.getText().toString();
+
                     intent1 = new Intent(getApplicationContext(), Swipe.class);
                     intent1.putExtra("Name", name2);
                     intent1.putExtra("Designation", getdesignation);
                     intent1.putExtra("Address", getaddres);
                     intent1.putExtra("Email", email2);
                     Toast.makeText(getApplicationContext(),"User successfully registered!!",Toast.LENGTH_SHORT).show();
-                    userid =  mAuth.getCurrentUser().getUid();
-                    DatabaseReference current_user =  mDatabase.child(userid);
-                    current_user.child("Designation").setValue(getdesignation);
-                    current_user.child("Address").setValue(getaddres);
+                    //userid =  mAuth.getCurrentUser().getUid();
+                    mDatabase = FirebaseDatabase.getInstance().getReference().child("Registration");
+                    Toast.makeText(getApplicationContext(),userid,Toast.LENGTH_SHORT).show();
+                    System.out.println(MainActivity.userid);
+                    DatabaseReference current_user =  mDatabase.child(MainActivity.userid);
+                    current_user.child("Designation").setValue(desig);
+                    current_user.child("Address").setValue(address);
                     startActivity(intent1);
                   //  callsignup(email, getepassword);
                     //finish();
