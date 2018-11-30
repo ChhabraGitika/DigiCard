@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "941254949811",
+    "firebase_url": "https://glogin-aed87.firebaseio.com",
+    "project_id": "glogin-aed87",
+    "storage_bucket": "glogin-aed87.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:941254949811:android:ac28b41ea425d076",
+        "android_client_info": {
+          "package_name": "com.example.nihit.googlesignin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "941254949811-1o3i6ij7hm7g5ncoif4n5iadhg4m1n8c.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.nihit.googlesignin",
+            "certificate_hash": "e48a23c4902fa3f4ffc41e2975c2862427c7183c"
+          }
+        },
+        {
+          "client_id": "941254949811-6d200hkoiccme340qu94quchghjq29of.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCcfAXC2o-mhKWY7oDWUWyzpKs2rEns9xk"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "941254949811-6d200hkoiccme340qu94quchghjq29of.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
