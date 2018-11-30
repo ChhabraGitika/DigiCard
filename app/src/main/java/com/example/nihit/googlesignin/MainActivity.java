@@ -28,6 +28,8 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class MainActivity extends AppCompatActivity {
     private SignInButton signIn;
@@ -36,6 +38,8 @@ public class MainActivity extends AppCompatActivity {
     private String TAG="MainActivity";
     private FirebaseAuth mAuth;
     private Button signOut,login;
+    private DatabaseReference mDatabase;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
                 .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
                 .build();
-
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("Registration");
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
         signIn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -142,6 +146,10 @@ public class MainActivity extends AppCompatActivity {
             String personEmail = acct.getEmail();
             String personId = acct.getId();
             Uri personPhoto = acct.getPhotoUrl();
+            //String userid =  mAuth.getCurrentUser().getUid();
+            DatabaseReference current_user =  mDatabase.child(personEmail);
+            current_user.child("name").setValue(personName);
+            current_user.child("email").setValue(personEmail);
             Toast.makeText(this,"Name of the User "+personName,Toast.LENGTH_LONG).show();
             Intent i = new Intent(getApplicationContext(),New_user_google.class);
             i.putExtra("name",personName);
