@@ -41,18 +41,18 @@ public class MainActivity extends AppCompatActivity {
     private Button signOut,login;
     private DatabaseReference mDatabase;
     static String userid;
-    SharedPreferences sp;
+   // SharedPreferences sp;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         requestAppPermissions();
-        sp = getSharedPreferences("login",MODE_PRIVATE);
-        if(sp.getBoolean("logged",false)){
-            goToMainActivity();
-        }
+//        sp = getSharedPreferences("login",MODE_PRIVATE);
+//        if(sp.getBoolean("logged",false)){
+//            goToMainActivity();
+//        }
         signIn = (SignInButton) findViewById(R.id.sign_in_button);
-       // signOut = (Button) findViewById(R.id.sign_out);
+        // signOut = (Button) findViewById(R.id.sign_out);
         mAuth = FirebaseAuth.getInstance();
         login=(Button) findViewById(R.id.login_button);
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -86,10 +86,10 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void goToMainActivity() {
-        Intent i = new Intent(this,Swipe.class);
-        startActivity(i);
-    }
+//    private void goToMainActivity() {
+//        Intent i = new Intent(this,Swipe.class);
+//        startActivity(i);
+//    }
 
     public void register(View view){
         Intent intent=new Intent(this,Select_Image_Option.class);
@@ -132,12 +132,12 @@ public class MainActivity extends AppCompatActivity {
                             Log.d(TAG, "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
 
-                           // Toast.makeText(MainActivity.this,"Update UI.",Toast.LENGTH_SHORT).show();
+                            // Toast.makeText(MainActivity.this,"Update UI.",Toast.LENGTH_SHORT).show();
                             updateUI(user);
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
-                           // Snackbar.make(findViewById(R.id.main_layout), "Authentication Failed.", Snackbar.LENGTH_SHORT).show();
+                            // Snackbar.make(findViewById(R.id.main_layout), "Authentication Failed.", Snackbar.LENGTH_SHORT).show();
                             Toast.makeText(MainActivity.this,"Authentication Failed.",Toast.LENGTH_SHORT).show();
                             //updateUI(null);
                         }
@@ -149,17 +149,17 @@ public class MainActivity extends AppCompatActivity {
 
     private void updateUI(FirebaseUser user)
     {
-       // signOut.setVisibility(View.VISIBLE);
+        // signOut.setVisibility(View.VISIBLE);
         GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(getApplicationContext());
         if (acct != null) {
-            sp.edit().putBoolean("logged",true).apply();
+            //sp.edit().putBoolean("logged",true).apply();
             String personName = acct.getDisplayName();
             String personGivenName = acct.getGivenName();
             String personFamilyName = acct.getFamilyName();
             String personEmail = acct.getEmail();
             String personId = acct.getId();
             Uri personPhoto = acct.getPhotoUrl();
-             userid =  mAuth.getCurrentUser().getUid();
+            userid =  mAuth.getCurrentUser().getUid();
             DatabaseReference current_user =  mDatabase.child(userid);
             current_user.child("name").setValue(personName);
             current_user.child("email").setValue(personEmail);
