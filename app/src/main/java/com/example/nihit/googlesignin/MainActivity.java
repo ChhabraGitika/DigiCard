@@ -168,6 +168,7 @@ public class MainActivity extends AppCompatActivity {
             i.putExtra("name",personName);
             i.putExtra("email",personEmail);
             i.putExtra("userid",userid);
+            this.finish();
             startActivity(i);
         }
 

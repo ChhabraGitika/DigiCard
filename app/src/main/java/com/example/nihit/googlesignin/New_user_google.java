@@ -72,9 +72,11 @@ public class New_user_google extends AppCompatActivity {
         final String userid = b.getString("userid");
         designation=(EditText)findViewById(R.id.input_designation);
         addrs=(EditText)findViewById(R.id.input_address);
-        name1.setText(name);
+        //name1.setText(name);
         email1.setText(email);
-        DatabaseReference current_user =  mDatabase.child(userid);
+        System.out.println("kkkkk"+MainActivity.userid);
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("Registration");
+        DatabaseReference current_user =  mDatabase.child(MainActivity.userid);
 
         current_user.child("name").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -120,11 +122,12 @@ public class New_user_google extends AppCompatActivity {
                     //userid =  mAuth.getCurrentUser().getUid();
                     mDatabase = FirebaseDatabase.getInstance().getReference().child("Registration");
                     Toast.makeText(getApplicationContext(),userid,Toast.LENGTH_SHORT).show();
-                    System.out.println(MainActivity.userid);
+                    System.out.println("qqqq"+MainActivity.userid);
                     DatabaseReference current_user =  mDatabase.child(MainActivity.userid);
                     current_user.child("Designation").setValue(desig);
                     current_user.child("Address").setValue(address);
                     startActivity(intent1);
+                    New_user_google.this.finish();
                   //  callsignup(email, getepassword);
                     //finish();
                 }
