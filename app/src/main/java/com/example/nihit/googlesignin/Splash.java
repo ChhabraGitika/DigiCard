@@ -25,15 +25,22 @@ public class Splash extends Activity {
                     startActivity(new Intent(Splash.this, MainActivity.class));
                     finish();
                 }
-            }, secondsDelayed * 1000);
+            }, secondsDelayed * 700);
         }
 
     }
     protected void onStart(){
         super.onStart();
+        int secondsDelayed = 1;
         if (mAuth.getCurrentUser() != null) {
-            finish();
-            startActivity(new Intent(this, Swipe.class));
+            //finish();
+            //startActivity(new Intent(this, Swipe.class));
+            new Handler().postDelayed(new Runnable() {
+                public void run() {
+                    startActivity(new Intent(Splash.this, Swipe.class));
+                    finish();
+                }
+            }, secondsDelayed * 700);
         }
     }
 }
