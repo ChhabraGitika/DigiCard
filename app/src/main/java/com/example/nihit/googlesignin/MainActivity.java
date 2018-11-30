@@ -2,6 +2,7 @@ package com.example.nihit.googlesignin;
 
 import android.Manifest;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
@@ -40,13 +41,16 @@ public class MainActivity extends AppCompatActivity {
     private Button signOut,login;
     private DatabaseReference mDatabase;
     static String userid;
-
-
+    SharedPreferences sp;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         requestAppPermissions();
+        sp = getSharedPreferences("login",MODE_PRIVATE);
+        if(sp.getBoolean("logged",false)){
+            goToMainActivity();
+        }
         signIn = (SignInButton) findViewById(R.id.sign_in_button);
        // signOut = (Button) findViewById(R.id.sign_out);
         mAuth = FirebaseAuth.getInstance();
@@ -81,6 +85,12 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+    private void goToMainActivity() {
+        Intent i = new Intent(this,Swipe.class);
+        startActivity(i);
+    }
+
     public void register(View view){
         Intent intent=new Intent(this,Select_Image_Option.class);
         startActivity(intent);
@@ -121,6 +131,7 @@ public class MainActivity extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
+
                            // Toast.makeText(MainActivity.this,"Update UI.",Toast.LENGTH_SHORT).show();
                             updateUI(user);
                         } else {
@@ -141,6 +152,7 @@ public class MainActivity extends AppCompatActivity {
        // signOut.setVisibility(View.VISIBLE);
         GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(getApplicationContext());
         if (acct != null) {
+            sp.edit().putBoolean("logged",true).apply();
             String personName = acct.getDisplayName();
             String personGivenName = acct.getGivenName();
             String personFamilyName = acct.getFamilyName();
