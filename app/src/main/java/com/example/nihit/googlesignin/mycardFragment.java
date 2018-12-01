@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.zxing.BarcodeFormat;
@@ -30,10 +31,21 @@ public class mycardFragment extends Fragment {
     private static final String IMAGE_DIRECTORY = "/QRcodeDemonuts";
     Bitmap bitmap ;
     private ImageView iv;
+    TextView name,phone,address,email,website,company;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.activity_mycard_fragment, container, false);
+        name = (TextView)rootView.findViewById(R.id.name_person);
+        phone = (TextView)rootView.findViewById(R.id.phone_person);
+        email = (TextView)rootView.findViewById(R.id.email_person);
+        website = (TextView)rootView.findViewById(R.id.website_person);
+        name.setText("FIRST LAST");
+        address.setText("first street second lane");
+        phone.setText("987451262");
+        email.setText("gitika.chhabra95@gmail.com");
+        website.setText("www.heyyyyyyy.com");
+        company.setText("fake company");
         iv=(ImageView)rootView.findViewById(R.id.QRimg);
         try {
             String dataRecv=" ";
@@ -50,6 +62,7 @@ public class mycardFragment extends Fragment {
         } catch (WriterException e) {
             e.printStackTrace();
         }
+
         return rootView;
     }
     private Bitmap TextToImageEncode(String Value) throws WriterException {

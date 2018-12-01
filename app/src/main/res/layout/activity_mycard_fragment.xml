@@ -11,4 +11,90 @@
         android:layout_marginTop="20dp"
         android:id="@+id/QRimg"/>
 
+
+    <android.support.v7.widget.CardView
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/card_view"
+        android:layout_below="@+id/QRimg"
+        android:layout_gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        card_view:cardBackgroundColor="#E8E8E8"
+        card_view:cardCornerRadius="4dp">
+
+        <TextView
+            android:id="@+id/company_person"
+            android:layout_width="104dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteY="16dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/name_person"
+                android:layout_width="108dp"
+                android:layout_height="100dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="40dp"
+
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="20dp"
+                android:gravity="bottom"
+                android:textSize="30sp"
+                android:textStyle="bold" />
+            <View
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="20dp"
+                android:id="@+id/view"
+                android:layout_toRightOf="@+id/name_person"
+                android:layout_width="1dip"
+                android:layout_height="fill_parent"
+                android:background="#000000"/>
+
+            <LinearLayout
+                android:layout_width="215dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="10dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/address_person"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:id="@+id/phone_person"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:id="@+id/email_person"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:id="@+id/website_person"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+            </LinearLayout>
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+
 </RelativeLayout>
