@@ -97,6 +97,7 @@ public class Swipe extends AppCompatActivity {
         switch (id){
             case R.id.sout_dot:
                 Toast.makeText(this,"Signed out",Toast.LENGTH_LONG).show();
+                FirebaseAuth.getInstance().signOut();
                 mAuth.signOut();
                 Intent intent=new Intent(this,MainActivity.class);
                 startActivity(intent);
