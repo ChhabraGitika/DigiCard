@@ -72,17 +72,29 @@ public class New_user_google extends AppCompatActivity {
         final String userid = b.getString("userid");
         designation=(EditText)findViewById(R.id.input_designation);
         addrs=(EditText)findViewById(R.id.input_address);
-        //name1.setText(name);
+        name1.setText(name);
         email1.setText(email);
         System.out.println("kkkkk"+MainActivity.userid);
         mDatabase = FirebaseDatabase.getInstance().getReference().child("Registration");
         DatabaseReference current_user =  mDatabase.child(MainActivity.userid);
 
-        current_user.child("name").addListenerForSingleValueEvent(new ValueEventListener() {
+        current_user.child("Designation").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                String name=dataSnapshot.getValue(String.class);
-                name1.setText(name);
+                String desig=dataSnapshot.getValue(String.class);
+                designation.setText(desig);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+        current_user.child("Address").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String addrss=dataSnapshot.getValue(String.class);
+                addrs.setText(addrss);
             }
 
             @Override
@@ -112,6 +124,9 @@ public class New_user_google extends AppCompatActivity {
                     String getaddres = "Address"+addrs.getText().toString().trim()+"\n";
                     String address = addrs.getText().toString();
                     String desig = designation.getText().toString();
+                    String edittedName = name1.getText().toString();
+
+
 
                     intent1 = new Intent(getApplicationContext(), Swipe.class);
                     intent1.putExtra("Name", name2);
@@ -124,8 +139,9 @@ public class New_user_google extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(),userid,Toast.LENGTH_SHORT).show();
                     System.out.println("qqqq"+MainActivity.userid);
                     DatabaseReference current_user =  mDatabase.child(MainActivity.userid);
-                    current_user.child("Designation").setValue(desig);
+                    current_user.child("name").setValue(edittedName);
                     current_user.child("Address").setValue(address);
+                    current_user.child("Designation").setValue(desig);
                     startActivity(intent1);
                     New_user_google.this.finish();
                   //  callsignup(email, getepassword);
